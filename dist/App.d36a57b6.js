@@ -31792,7 +31792,7 @@ function Pet(_ref) {
   var name = _ref.name,
       animal = _ref.animal,
       breed = _ref.breed;
-  return _react.default.createElement("div", {}, [_react.default.createElement("h1", {}, name), _react.default.createElement("h2", {}, animal), _react.default.createElement("h2", {}, breed)]);
+  return _react.default.createElement("div", null, _react.default.createElement("h1", null, name), _react.default.createElement("h2", null, animal), _react.default.createElement("h2", null, breed));
 }
 },{"react":"../node_modules/react/index.js"}],"App.js":[function(require,module,exports) {
 "use strict";
