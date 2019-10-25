@@ -31782,20 +31782,18 @@ if ("development" === 'production') {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Pet = void 0;
+exports.default = Pet;
 
 var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Pet = function Pet(_ref) {
+function Pet(_ref) {
   var name = _ref.name,
       animal = _ref.animal,
       breed = _ref.breed;
   return _react.default.createElement("div", {}, [_react.default.createElement("h1", {}, name), _react.default.createElement("h2", {}, animal), _react.default.createElement("h2", {}, breed)]);
-};
-
-exports.Pet = Pet;
+}
 },{"react":"../node_modules/react/index.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
@@ -31803,7 +31801,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _reactDom = require("react-dom");
 
-var _Pet = require("./Pet");
+var _Pet = _interopRequireDefault(require("./Pet"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31842,19 +31840,19 @@ var App = function App() {
     id: "something-important"
   }, [_react.default.createElement("h1", {
     key: "Pet 0"
-  }, "Adopt Me!"), _react.default.createElement(_Pet.Pet, {
+  }, "Adopt Me!"), _react.default.createElement(_Pet.default, {
     name: "Luna",
     animal: "Dog",
     breed: "Havanese"
   }, {
     key: "Pet 1"
-  }), _react.default.createElement(_Pet.Pet, {
+  }), _react.default.createElement(_Pet.default, {
     name: "Pepper",
     animal: "Bird",
     breed: "Cockatiel"
   }, {
     key: "Pet 2"
-  }), _react.default.createElement(_Pet.Pet, {
+  }), _react.default.createElement(_Pet.default, {
     name: "Doink",
     animal: "Cat",
     breed: "Mixed"
