@@ -31804,6 +31804,7 @@ var SearchParams = function SearchParams() {
       location = _useState2[0],
       setLocation = _useState2[1];
 
+  console.log("state of location", location);
   return _react.default.createElement("div", {
     className: "search-params"
   }, _react.default.createElement("form", null, _react.default.createElement("label", {
