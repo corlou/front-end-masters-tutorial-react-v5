@@ -31804,10 +31804,9 @@ var SearchParams = function SearchParams() {
       location = _useState2[0],
       setLocation = _useState2[1];
 
-  console.log("state of location", location);
   return _react.default.createElement("div", {
     className: "search-params"
-  }, _react.default.createElement("form", null, _react.default.createElement("label", {
+  }, _react.default.createElement("h1", null, location), _react.default.createElement("form", null, _react.default.createElement("label", {
     htmlFor: "location"
   }, "Location", _react.default.createElement("input", {
     id: "location",
@@ -31865,7 +31864,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56703" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59667" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
