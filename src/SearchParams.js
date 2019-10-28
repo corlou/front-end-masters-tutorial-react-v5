@@ -16,10 +16,10 @@ const SearchParams = () => {
       type: animal
     });
 
-    setPets(animals || []);
+    setPets(animal || []);
   }
 
-  console.log(animals);
+  console.log(animal);
 
   useEffect(() => {
     setBreeds([]);
