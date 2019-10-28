@@ -18,6 +18,9 @@ const SearchParams = () => {
 
     setPets(animals || []);
   }
+
+  console.log(animals);
+
   useEffect(() => {
     setBreeds([]);
     setBreed("");

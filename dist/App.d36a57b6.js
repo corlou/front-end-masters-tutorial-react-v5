@@ -33601,6 +33601,7 @@ var SearchParams = function SearchParams() {
     return _requestPets.apply(this, arguments);
   }
 
+  console.log(animals);
   (0, _react.useEffect)(function () {
     setBreeds([]);
     setBreed("");
