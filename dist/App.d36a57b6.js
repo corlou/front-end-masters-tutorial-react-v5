@@ -36308,21 +36308,27 @@ var Details =
 function (_React$Component) {
   _inherits(Details, _React$Component);
 
-  function Details() {
+  function Details(props) {
+    var _this;
+
     _classCallCheck(this, Details);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Details).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Details).call(this, props));
+    _this.state = {
+      loading: true
+    };
+    return _this;
   }
 
   _createClass(Details, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this = this;
+      var _this2 = this;
 
       _pet.default.animal(this.props.id).then(function (_ref) {
         var animal = _ref.animal;
 
-        _this.setState({
+        _this2.setState({
           name: animal.name,
           animal: animal.type,
           location: "".concat(animal.contact.address.city, ",  ").concat(animal.contact.address.state),
@@ -36331,17 +36337,30 @@ function (_React$Component) {
           breed: animal.breeds.primary,
           loading: false
         });
-      });
+      }, console.error);
     }
   }, {
     key: "render",
-    value: function render() {}
+    value: function render() {
+      if (this.state.loading) {
+        return _react.default.createElement("h1", null, "loading ...");
+      }
+
+      var _this$state = this.state,
+          animal = _this$state.animal,
+          breed = _this$state.breed,
+          location = _this$state.location,
+          description = _this$state.description,
+          name = _this$state.name;
+      return _react.default.createElement("div", {
+        className: "details"
+      }, _react.default.createElement("div", null, _react.default.createElement("h1", null, name), _react.default.createElement("h2", null, "".concat(animal, " - ").concat(breed, " - ").concat(location)), _react.default.createElement("button", null, "Adopt ", name), _react.default.createElement("p", null, description)));
+    }
   }]);
 
   return Details;
 }(_react.default.Component);
 
-return;
 var _default = Details;
 exports.default = _default;
 },{"react":"../node_modules/react/index.js","@frontendmasters/pet":"../node_modules/@frontendmasters/pet/index.js"}],"App.js":[function(require,module,exports) {
@@ -36353,18 +36372,18 @@ var _reactDom = require("react-dom");
 
 var _router = require("@reach/router");
 
-var _SearchParams = require("./SearchParams");
+var _SearchParams = _interopRequireDefault(require("./SearchParams"));
 
-var _Details = require("./Details");
+var _Details = _interopRequireDefault(require("./Details"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
   return _react.default.createElement(_react.default.StrictMode, null, _react.default.createElement("div", null, _react.default.createElement("header", null, _react.default.createElement(_router.Link, {
     to: "/"
-  }, "Adopt Me!")), _react.default.createElement(_router.Router, null, _react.default.createElement(_SearchParams.SearchParams, {
+  }, "Adopt Me!")), _react.default.createElement(_router.Router, null, _react.default.createElement(_SearchParams.default, {
     path: "/"
-  }), _react.default.createElement(_Details.Details, {
+  }), _react.default.createElement(_Details.default, {
     path: "/details/:id"
   }))));
 };
@@ -36398,7 +36417,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57041" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63209" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
