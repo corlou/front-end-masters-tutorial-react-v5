@@ -36271,7 +36271,7 @@ var SearchParams = function SearchParams() {
 
 var _default = SearchParams;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","@frontendmasters/pet":"../node_modules/@frontendmasters/pet/index.js","./useDropdown.js":"useDropdown.js"}],"carousel.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@frontendmasters/pet":"../node_modules/@frontendmasters/pet/index.js","./useDropdown.js":"useDropdown.js"}],"Carousel.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36344,12 +36344,12 @@ function (_React$Component) {
           photos = _this$state.photos,
           active = _this$state.active;
       return _react.default.createElement("div", {
-        className: "carousel"
+        className: "Carousel"
       }, _react.default.createElement("img", {
         src: photos[active],
         alt: "animal"
       }), _react.default.createElement("div", {
-        className: "carousel-smaller"
+        className: "Carousel-smaller"
       }, photos.map(function (photo, index) {
         return (//eslint-disable-next-line
           _react.default.createElement("img", {
@@ -36387,7 +36387,7 @@ function (_React$Component) {
 
 var _default = Carousel;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"Details.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js"}],"ErrorBoundary.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36395,11 +36395,124 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _react = _interopRequireWildcard(require("react"));
+
+var _router = require("@reach/router");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var ErrorBoundary =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(ErrorBoundary, _Component);
+
+  function ErrorBoundary() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    _classCallCheck(this, ErrorBoundary);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ErrorBoundary)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      hasError: false,
+      redirect: false
+    });
+
+    return _this;
+  }
+
+  _createClass(ErrorBoundary, [{
+    key: "componentDidCatch",
+    value: function componentDidCatch(error, info) {
+      console.error("ErrorBoundary caught an error", error, info);
+    }
+  }, {
+    key: "componentWillUpdate",
+    value: function componentWillUpdate() {
+      var _this2 = this;
+
+      if (this.state.hasError) {
+        setTimeout(function () {
+          return _this2.setState({
+            redirect: true
+          });
+        }, 5000);
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.state.redirect) {
+        return _react.default.createElement(Redirect, {
+          to: "/"
+        });
+      }
+
+      if (this.state.hasError) {
+        return _react.default.createElement("h1", null, "There was an error with this listing. ", _react.default.createElement(_router.Link, {
+          to: "/"
+        }, "Click here"), " ", "to go back to the home page or wait five seconds.");
+      }
+
+      return this.props.children;
+    }
+  }], [{
+    key: "getDerivedStateFromError",
+    value: function getDerivedStateFromError() {
+      return {
+        hasError: true
+      };
+    }
+  }]);
+
+  return ErrorBoundary;
+}(_react.Component);
+
+var _default = ErrorBoundary;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js"}],"Details.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = DetailsWithErrorBoundary;
+
 var _react = _interopRequireDefault(require("react"));
 
 var _pet = _interopRequireDefault(require("@frontendmasters/pet"));
 
-var _carousel = _interopRequireDefault(require("./carousel"));
+var _Carousel = _interopRequireDefault(require("./Carousel"));
+
+var _ErrorBoundary = _interopRequireDefault(require("./ErrorBoundary"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -36483,7 +36596,7 @@ function (_React$Component) {
           media = _this$state.media;
       this.state.return(_react.default.createElement("div", {
         className: "details"
-      }, _react.default.createElement("carousel", {
+      }, _react.default.createElement(_Carousel.default, {
         media: media
       }), _react.default.createElement("div", null, _react.default.createElement("h1", null, name), _react.default.createElement("h2", null, "".concat(animal, " - ").concat(breed, " - ").concat(location)), _react.default.createElement("button", null, "Adopt ", name), _react.default.createElement("p", null, description))));
     }
@@ -36492,9 +36605,10 @@ function (_React$Component) {
   return Details;
 }(_react.default.Component);
 
-var _default = Details;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","@frontendmasters/pet":"../node_modules/@frontendmasters/pet/index.js","./carousel":"carousel.js"}],"App.js":[function(require,module,exports) {
+function DetailsWithErrorBoundary(props) {
+  return _react.default.createElement(_ErrorBoundary.default, null, _react.default.createElement(Details, props));
+}
+},{"react":"../node_modules/react/index.js","@frontendmasters/pet":"../node_modules/@frontendmasters/pet/index.js","./Carousel":"Carousel.js","./ErrorBoundary":"ErrorBoundary.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -36548,7 +36662,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53660" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62828" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
