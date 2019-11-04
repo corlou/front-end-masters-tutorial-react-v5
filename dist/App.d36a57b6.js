@@ -36216,8 +36216,9 @@ var SearchParams = function SearchParams() {
       setPets = _useState6[1];
 
   var _useContext = (0, _react.useContext)(_ThemeContext.default),
-      _useContext2 = _slicedToArray(_useContext, 1),
-      theme = _useContext2[0];
+      _useContext2 = _slicedToArray(_useContext, 2),
+      theme = _useContext2[0],
+      setTheme = _useContext2[1];
 
   function requestPets() {
     return _requestPets.apply(this, arguments);
@@ -36285,7 +36286,25 @@ var SearchParams = function SearchParams() {
     onChange: function onChange(e) {
       return setLocation(e.target.value);
     }
-  })), _react.default.createElement(AnimalDropdown, null), _react.default.createElement(BreedDropdown, null), _react.default.createElement("button", {
+  })), _react.default.createElement(AnimalDropdown, null), _react.default.createElement(BreedDropdown, null), _react.default.createElement("label", {
+    htmlFor: "theme"
+  }, "Theme", _react.default.createElement("select", {
+    value: theme,
+    onChange: function onChange(e) {
+      return setTheme(e.target.value);
+    },
+    onBlur: function onBlur(e) {
+      return setTheme(e.target.value);
+    }
+  }, _react.default.createElement("option", {
+    value: "peru"
+  }, "Peru"), _react.default.createElement("option", {
+    value: "darkblue"
+  }, "Dark Blue"), _react.default.createElement("option", {
+    value: "mediumorchid"
+  }, "Medium Orchid"), _react.default.createElement("option", {
+    value: "chartreuse"
+  }, "Chartreuse"))), _react.default.createElement("button", {
     style: {
       backgroundColor: theme
     }
@@ -36672,7 +36691,7 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 var App = function App() {
-  var themeHook = (0, _react.useState)("peru");
+  var themeHook = (0, _react.useState)("darkblue");
   return _react.default.createElement(_react.default.StrictMode, null, _react.default.createElement(_ThemeContext.default.Provider, {
     value: themeHook
   }, _react.default.createElement("div", null, _react.default.createElement("header", null, _react.default.createElement(_router.Link, {
@@ -36713,7 +36732,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62828" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53995" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
