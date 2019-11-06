@@ -36313,7 +36313,44 @@ var SearchParams = function SearchParams() {
 
 var _default = SearchParams;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","@frontendmasters/pet":"../node_modules/@frontendmasters/pet/index.js","./useDropdown.js":"useDropdown.js","./ThemeContext":"ThemeContext.js"}],"Carousel.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@frontendmasters/pet":"../node_modules/@frontendmasters/pet/index.js","./useDropdown.js":"useDropdown.js","./ThemeContext":"ThemeContext.js"}],"Modal.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactDom = require("react-dom");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var Modal = function Modal(_ref) {
+  var children = _ref.children;
+  var elRef = (0, _react.useRef)(null);
+
+  if (!elRef.current) {
+    var div = document.createElement("div");
+    elRef.current = div;
+  }
+
+  (0, _react.useEffect)(function () {
+    var modalRoot = document.getElementById("modal");
+    modalRoot.appendChild(elRef.current);
+    return function () {
+      return modalRoot.removeChild(elRef.current);
+    };
+  }, []);
+  returncreatePortal(_react.default.createElement("div", null, children), elRef.current);
+};
+
+var _default = Modal;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js"}],"Carousel.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36552,6 +36589,10 @@ var _react = _interopRequireDefault(require("react"));
 
 var _pet = _interopRequireDefault(require("@frontendmasters/pet"));
 
+var _router = require("@reach/router");
+
+var _Modal = _interopRequireDefault(require("./Modal"));
+
 var _Carousel = _interopRequireDefault(require("./Carousel"));
 
 var _ErrorBoundary = _interopRequireDefault(require("./ErrorBoundary"));
@@ -36607,7 +36648,18 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Details)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "state", {
-      loading: true
+      loading: true,
+      showModal: false
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "toggleModal", function () {
+      return _this.setState({
+        showModal: !_this.state.showModal
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "adopt", function () {
+      return (0, _router.navigate)(_this.state.url);
     });
 
     return _this;
@@ -36622,6 +36674,7 @@ function (_React$Component) {
         var animal = _ref.animal;
 
         _this2.setState({
+          url: animal.url,
           name: animal.name,
           animal: animal.type,
           location: "".concat(animal.contact.address.city, ", ").concat(animal.contact.address.state),
@@ -36635,6 +36688,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       if (this.state.loading) {
         return _react.default.createElement("h1", null, "loading ...");
       }
@@ -36645,7 +36700,8 @@ function (_React$Component) {
           location = _this$state.location,
           description = _this$state.description,
           name = _this$state.name,
-          media = _this$state.media;
+          media = _this$state.media,
+          showModal = _this$state.showModal;
       this.state.return(_react.default.createElement("div", {
         className: "details"
       }, _react.default.createElement(_Carousel.default, {
@@ -36655,11 +36711,18 @@ function (_React$Component) {
             theme = _ref3[0];
 
         return _react.default.createElement("button", {
+          onClick: _this3.toggleModal,
           style: {
             backgroundColor: theme
           }
         }, "Adopt ", name);
-      }), _react.default.createElement("p", null, description))));
+      }), _react.default.createElement("p", null, description), showModal ? _react.default.createElement(_Modal.default, null, _react.default.createElement("div", null, _react.default.createElement("h1", null, "Would you like to adopt ", name, "?"), _react.default.createElement("div", {
+        className: "buttons"
+      }, _react.default.createElement("button", {
+        onClick: this.adopt
+      }, "Yes"), _react.default.createElement("button", {
+        onClick: this.toggleModal
+      }, "No, I'm a monster")))) : null, "}")));
     }
   }]);
 
@@ -36669,7 +36732,7 @@ function (_React$Component) {
 function DetailsWithErrorBoundary(props) {
   return _react.default.createElement(_ErrorBoundary.default, null, _react.default.createElement(Details, props));
 }
-},{"react":"../node_modules/react/index.js","@frontendmasters/pet":"../node_modules/@frontendmasters/pet/index.js","./Carousel":"Carousel.js","./ErrorBoundary":"ErrorBoundary.js","./ThemeContext":"ThemeContext.js"}],"App.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@frontendmasters/pet":"../node_modules/@frontendmasters/pet/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","./Modal":"Modal.js","./Carousel":"Carousel.js","./ErrorBoundary":"ErrorBoundary.js","./ThemeContext":"ThemeContext.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireWildcard(require("react"));
