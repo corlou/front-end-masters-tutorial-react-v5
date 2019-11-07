@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
 import pet, { ANIMALS } from "@frontendmasters/pet";
 import useDropdown from "./useDropdown.js";
+import Results from "./Results";
 import ThemeContext from "./ThemeContext";
 
 const SearchParams = () => {
-  const [location, setLocation] = useState("Seattle, WA");
-  const [breeds, setBreeds] = useState([]);
-  const [animal, AnimalDropdown] = useDropdown("Animal", "dog", ANIMALS);
-  const [breed, BreedDropdown, setBreed] = useDropdown("Breed", "", breeds);
-  const [pets, setPets] = useState([]);
   const [theme, setTheme] = useContext(ThemeContext);
+  const [location, updateLocation] = useState("Seattle, WA");
+  const [breeds, updateBreeds] = useState([]);
+  const [pets, setPets] = useState([]);
+  const [animal, AnimalDropdown] = useDropdown("Animal", "dog", ANIMALS);
+  const [breed, BreedDropdown, updateBreed] = useDropdown("Breed", "", breeds);
 
   async function requestPets() {
     const { animals } = await pet.animals({
@@ -18,24 +19,23 @@ const SearchParams = () => {
       type: animal
     });
 
+    console.log("animals", animals);
+
     setPets(animal || []);
   }
 
-  console.log(animal);
-
   useEffect(() => {
-    setBreeds([]);
-    setBreed("");
+    updateBreeds([]);
+    updateBreed("");
 
     pet.breeds(animal).then(({ breeds }) => {
       const breedStrings = breeds.map(({ name }) => name);
       setBreeds(breedStrings);
     }, console.error);
-  }, [animal, setBreed, setBreeds]);
+  }, [animal]);
 
   return (
     <div className="search-params">
-      <h1>{location}</h1>
       <form
         onSubmit={e => {
           e.preventDefault();

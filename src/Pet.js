@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "@reach/router";
 
-export default function Pet({ name, animal, breed, media, location, id }) {
+const Pet = props => {
+  const { name, animal, breed, media, location, id } = props;
+
   let hero = "http://placecorgi.com/300/300";
   if (media.length) {
     hero = media[0].small;
@@ -18,4 +20,6 @@ export default function Pet({ name, animal, breed, media, location, id }) {
       </div>
     </Link>
   );
-}
+};
+
+export default Pet;

@@ -1,27 +1,29 @@
 import React from "react";
 import pet from "@frontendmasters/pet";
 import { navigate } from "@reach/router";
-import Modal from "./Modal";
 import Carousel from "./Carousel";
+import Modal from "./Modal";
 import ErrorBoundary from "./ErrorBoundary";
 import ThemeContext from "./ThemeContext";
 
 class Details extends React.Component {
   state = { loading: true, showModal: false };
-
   componentDidMount() {
-    pet.animal(this.props.id).then(({ animal }) => {
-      this.setState({
-        url: animal.url,
-        name: animal.name,
-        animal: animal.type,
-        location: `${animal.contact.address.city}, ${animal.contact.address.state}`,
-        description: animal.description,
-        media: animal.photos,
-        breed: animal.breeds.primary,
-        loading: false
-      });
-    }, console.error);
+    pet
+      .animal(this.props.id)
+      .then(({ animal }) => {
+        this.setState({
+          name: animal.name,
+          animal: animal.type,
+          location: `${animal.contact.address.city}, ${animal.contact.address.state}`,
+          description: animal.description,
+          media: animal.photos,
+          breed: animal.breeds.primary,
+          url: animal.url,
+          loading: false
+        });
+      })
+      .catch(err => this.setState({ error: err }));
   }
   toggleModal = () => this.setState({ showModal: !this.state.showModal });
   adopt = () => navigate(this.state.url);
@@ -29,6 +31,7 @@ class Details extends React.Component {
     if (this.state.loading) {
       return <h1>loading ...</h1>;
     }
+
     const {
       animal,
       breed,
@@ -38,7 +41,8 @@ class Details extends React.Component {
       media,
       showModal
     } = this.state;
-    this.state.return(
+
+    return (
       <div className="details">
         <Carousel media={media} />
         <div>
@@ -47,8 +51,8 @@ class Details extends React.Component {
           <ThemeContext.Consumer>
             {([theme]) => (
               <button
-                onClick={this.toggleModal}
                 style={{ backgroundColor: theme }}
+                onClick={this.toggleModal}
               >
                 Adopt {name}
               </button>
@@ -61,7 +65,7 @@ class Details extends React.Component {
                 <h1>Would you like to adopt {name}?</h1>
                 <div className="buttons">
                   <button onClick={this.adopt}>Yes</button>
-                  <button onClick={this.toggleModal}>No, I'm a monster</button>
+                  <button onClick={this.toggleModal}>No</button>
                 </div>
               </div>
             </Modal>
