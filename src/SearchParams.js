@@ -48,12 +48,12 @@ const SearchParams = () => {
             id="location"
             value={location}
             placeholder="Location"
-            onChange={e => setLocation(e.target.value)}
+            onChange={e => updateLocation(e.target.value)}
           />
         </label>
         <AnimalDropdown />
         <BreedDropdown />
-        <label htmlFor="theme">
+        <label htmlFor="location">
           Theme
           <select
             value={theme}
@@ -62,11 +62,10 @@ const SearchParams = () => {
           >
             <option value="peru">Peru</option>
             <option value="darkblue">Dark Blue</option>
-            <option value="mediumorchid">Medium Orchid</option>
             <option value="chartreuse">Chartreuse</option>
+            <option value="mediumorchid">Medium Orchid</option>
           </select>
         </label>
-
         <button style={{ backgroundColor: theme }}>Submit</button>
       </form>
     </div>
